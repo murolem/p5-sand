@@ -1,19 +1,12 @@
 import p5 from 'p5';
 import { Cell } from './Cell';
-import { randomArrayItem } from './utils/randomArrayItem';
-import { randomIntInRange } from './utils/randomIntInRange';
-import { s as s } from './store';
-import { AnyFunction, P5InstanceFunctions } from './types';
-import { getBindedP5Functions } from './lib/getBindedP5Functions';
-import Logger from '@aliser/logger';
 import { CellBrush } from './CellBrush';
+import { getBindedP5Functions } from './lib/getBindedP5Functions';
+import { s } from './store';
 import { isWithinRange } from './utils/isWithinRange';
+import { randomArrayItem } from './utils/randomArrayItem';
+import Logger from '@aliser/logger';
 const { logError } = new Logger();
-
-// 
-
-// export let p: p5;
-// export let pfn: P5InstanceFunctions;
 
 // 
 
@@ -24,7 +17,7 @@ const canvasSize = {
 
 const fps = 144;
 
-const cellSizePx = 8;
+const cellSizePx = 5;
 s.cellSizePx = cellSizePx;
 
 const updatesPerSecond = 40;
@@ -42,7 +35,7 @@ s.chanceToMoveToSidePerSec = chanceToMoveToSidePerSec;
  * шанс заменить ячейку легче ниже, в секунду. 
  * считается вместеп с {@link chanceToReplaceLighterCellPerWeight}
 */
-const chanceToReplaceLighterCellPerSec = 10 / 1;
+const chanceToReplaceLighterCellPerSec = 30 / 1;
 s.chanceToReplaceLighterCellPerSec = chanceToReplaceLighterCellPerSec;
 
 
@@ -62,20 +55,20 @@ const colorPalleteStrArr: string[][] = [
         'hsl(30, 80%, 30%)',
         'hsl(30, 80%, 20%)'
     ],
-    [
-        'hsl(320, 100%, 70%)', // Light Lavender Sand
-        'hsl(320, 100%, 60%)',
-        'hsl(320, 100%, 50%)',
-        'hsl(320, 100%, 40%)',
-        'hsl(320, 100%, 30%)'
-    ],
-    [
-        'hsl(50, 100%, 55%)', // Light Peach Sand
-        'hsl(50, 100%, 45%)',
-        'hsl(50, 100%, 35%)',
-        'hsl(50, 100%, 25%)',
-        'hsl(50, 100%, 15%)'
-    ]
+    // [
+    //     'hsl(320, 100%, 70%)', // Light Lavender Sand
+    //     'hsl(320, 100%, 60%)',
+    //     'hsl(320, 100%, 50%)',
+    //     'hsl(320, 100%, 40%)',
+    //     'hsl(320, 100%, 30%)'
+    // ],
+    // [
+    //     'hsl(50, 100%, 55%)', // Light Peach Sand
+    //     'hsl(50, 100%, 45%)',
+    //     'hsl(50, 100%, 35%)',
+    //     'hsl(50, 100%, 25%)',
+    //     'hsl(50, 100%, 15%)'
+    // ]
 ];
 
 // 
@@ -301,6 +294,7 @@ new p5(p5InstanceUntyped => {
 
         fill('black');
         text(`FPS (current): ${Math.round(frameRate())}`, 20, 20);
+        text(`Cell count: ${cells.length}`, 20, 40);
     }
 }, document.getElementById('app')!);
 
